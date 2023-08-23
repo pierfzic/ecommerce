@@ -1,0 +1,125 @@
+<br>
+<div class="col-12 md:col-4">
+  <h5>Label - Badge</h5>
+  <p-avatar label="U" pBadge styleClass="mr-5" value="{{prodotti.length}}" size="large"
+    [style]="{ 'background-color': '#4caf4f', color: '#ffffff' }"></p-avatar>
+</div>
+
+<br>
+<br>
+<div class="mb-3">
+  <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()"
+    styleClass="p-button-text"></p-button>
+  <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+  <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()"
+    styleClass="p-button-text"></p-button>
+</div>
+<p-table #dt1 [value]="getProducts()" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }"
+  selectionMode="single" [(selection)]="selectedProduct" dataKey="id" [paginator]="false" [rows]="30"
+  [showCurrentPageReport]="true" currentPageReportTemplate="Da {first} a {last} di {totalRecords} totali"
+  [rowsPerPageOptions]="[3,5,10, 25, 50]" (onRowSelect)="selezionato($event)"
+  [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']">
+  <ng-template pTemplate="caption"> Prodotti
+    <div class="flex">
+      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+      <span class="p-input-icon-left ml-auto" style=" left: 50px;">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="filtra(dt1, $event)" placeholder="Search keyword" />
+      </span>
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>N.</th>
+      <th>Id</th>
+      <th pSortableColumn="name">Nome <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="category">Categoria <p-sortIcon field="category"></p-sortIcon></th>
+      <th pSortableColumn="description">Descrizione <p-sortIcon field="description"></p-sortIcon></th>
+      <th pSortableColumn="price">Prezzo <p-sortIcon field="price"></p-sortIcon></th>
+      <th>Operazioni</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr [pSelectableRow]="product">
+      <td>{{product.id }}</td>
+      <td>{{product.id }}</td>
+      <td>{{product.name }}</td>
+      <td>{{product.category }}</td>
+      <td>{{product.description }}</td>
+      <td>{{ product.price | currency: 'EUR'}}</td>
+      <td><p-button (click)="delProduct(product.id)">Delete</p-button>
+        <p-button (click)="info(product.id)">Detail</p-button>
+        <p-button (click)="copyProd(product.id)">Copy</p-button>
+        <p-button (click)="addToBasket(product.id)" pTooltip="Aggiungi al carrello">Add to basket</p-button>
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="flex align-items-center justify-content-between">
+      In totale ci sono {{prodotti ? prodotti.length : 0 }} prodotti.
+    </div>
+  </ng-template>
+  <!--  <ng-template pTemplate="paginatorleft">
+    <p-button type="button" (click)="addProduct()" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+  </ng-template>
+  <ng-template pTemplate="paginatorright">
+    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+  </ng-template> -->
+</p-table>
+<br>
+
+
+<div id="detail" class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebarVisible" position="right" styleClass="p-sidebar-md">
+    <h3>Dettaglio Prodotto</h3>
+    <p-chip>
+      <div> {{detail?.category}}</div>
+    </p-chip>
+    <p-chip>
+      <div> {{getPriceField(detail?.price || 0)}}</div>
+    </p-chip>
+    <br><br>
+    <table>
+      <tr>
+        <td>Id </td>
+        <td><input value="{{detail?.id}}" #id /></td>
+      </tr>
+      <tr>
+        <td>Name </td>
+        <td><input value="{{detail?.name}}" #name /></td>
+      </tr>
+      <tr>
+        <td>Category </td>
+        <td><input value="{{detail?.category}}" #category /> </td>
+      </tr>
+      <tr>
+        <td>Description </td>
+        <td><input value="{{detail?.description}}" size="60" #description />
+        </td>
+      </tr>
+      <tr>
+        <td>Price </td>
+        <td><input value="{{detail?.price}}" #price /> </td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <div *ngIf="added">
+      <p-button (click)="salvaNuovo()">Salva</p-button>
+    </div>
+    <div *ngIf="!added">
+      <p-button (click)="updateProd()">Aggiorna</p-button>
+    </div>
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" pTooltip="Mostra dettaglio"></p-button>
+  <p-button (click)="riepilogoOrdineVisible = true" pTooltip="Riepilogo Ordine">Riepilogo
+    Ordine</p-button>
+</div>
+<app-carrello></app-carrello>
+
+<div id="detail" class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="riepilogoOrdineVisible" position="right" styleClass="p-sidebar-md">
+    <app-riepilogo-ordine></app-riepilogo-ordine>
+  </p-sidebar>

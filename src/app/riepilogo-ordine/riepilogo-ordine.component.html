@@ -1,0 +1,68 @@
+<div>
+  <h2>Riepilogo Ordine</h2>
+  <div id="userdetail">
+    Nome: {{ordineCorrente.name}}
+    <br>
+    Indirizzo: {{ordineCorrente.address}}
+    <br>
+    Totale Ordine {{totaleOrdine | currency : "EUR"}}
+    <br>
+  </div>
+  <div id="orderdetail">
+    <table>
+      <thead>
+        <tr>
+          <th>Codice</th>
+          <th>Nome</th>
+          <th>Descrizione</th>
+          <th>Prezzo Unitario</th>
+          <th>Quantità</th>
+          <th>Prezzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let line of ordineCorrente.orderList">
+          <td>{{line.product.id}}</td>
+          <td>{{line.product.name}}</td>
+          <td>{{line.product.description}}</td>
+          <td>{{line.product.price | currency: "EUR": 'symbol'}}</td>
+          <td>{{line.quantity}}</td>
+          <td>{{line.product.price! * line.quantity | currency: "EUR": 'symbol'}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><b>TOTALE ORDINE</b></td>
+          <td><b>{{totaleOrdine | currency: "EUR": 'symbol'}}</b></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><b>SCONTI</b></td>
+          <td><b>{{-sconti | currency: "EUR"}}</b></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><b>TOTALE GENERALE</b></td>
+          <td><b>{{totaleOrdine-sconti | currency: "EUR"}}</b></td>
+        </tr>
+      </tfoot>
+
+
+
+
+    </table>
+    <p-button (click)="popolaRiepilogo()" pTooltip="Popola Tabella">Popola Riepilogo</p-button>
+  </div>
+
+
+</div>

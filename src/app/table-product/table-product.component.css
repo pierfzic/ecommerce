@@ -1,0 +1,16 @@
+#etichetta.label {
+  color: blueviolet;
+  margin: 50px;
+  padding-bottom: 20px;
+}
+
+
+p-button {
+  margin: 12px;
+}
+
+p-chip {
+  margin: 8px;
+  margin-bottom: 10px;
+
+}

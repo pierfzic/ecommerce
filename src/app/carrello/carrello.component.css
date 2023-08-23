@@ -1,0 +1,6 @@
+p-card {
+  border-color: 2px solid black;
+  border-radius: 2px;
+  margin-block: 20px;
+  background-color: rgb(189, 121, 39);
+}

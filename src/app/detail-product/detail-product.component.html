@@ -1,0 +1,58 @@
+<div class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebarVisible" position="right" styleClass="p-sidebar-md">
+    <h3>Sidebar</h3>
+    <H1> Pippero</H1>
+    <table>
+      <tr>
+        <td>Id </td>
+        <td><input value="{{dettaglioprodotto?.id}}" /></td>
+      </tr>
+      <tr>
+        <td>Name </td>
+        <td><input value="{{dettaglioprodotto?.name}}" /></td>
+      </tr>
+      <tr>
+        <td>Category </td>
+        <td><input value="{{dettaglioprodotto?.category}}" /> </td>
+      </tr>
+      <tr>
+        <td>Description </td>
+        <td><input value="{{dettaglioprodotto?.description}}" size="60" />
+        </td>
+      </tr>
+      <tr>
+        <td>Price </td>
+        <td><input value="{{dettaglioprodotto?.price}}" /> </td>
+      </tr>
+    </table>
+  </p-sidebar>
+  <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+</div>
+<!--
+<div id="dettaglio-prodotto">
+  <table>
+    <tr>
+      <td>Id </td>
+      <td><input value="{{dettaglioprodotto?.id}}" /></td>
+    </tr>
+    <tr>
+      <td>Name </td>
+      <td><input value="{{dettaglioprodotto?.name}}" /></td>
+    </tr>
+    <tr>
+      <td>Category </td>
+      <td><input value="{{dettaglioprodotto?.category}}" /> </td>
+    </tr>
+    <tr>
+      <td>Description </td>
+      <td><input value="{{dettaglioprodotto?.description}}" size="60" />
+      </td>
+    </tr>
+    <tr>
+      <td>Price </td>
+      <td><input value="{{dettaglioprodotto?.price}}" /> </td>
+    </tr>
+  </table>
+  <br>
+  <button id="btnSalva" (click)="update()">Salva</button>
+</div> -->

@@ -1,0 +1,32 @@
+<div id="carrello" class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="cartVisible" position="left" styleClass="p-sidebar-md">
+    <h1>Carrello</h1>
+    <i>Ci sono {{(elementi | async)?.orderList!.length}} oggetti nel carrello</i><br>
+    <i>Totale Carrello: {{totaleCarrello() |currency : "EUR"}}</i>
+    <p-card *ngFor="let line of (elementi | async)!.orderList" header="{{line.product.name}}">
+      <p class="m-0" style="margin-bottom: 25px;">
+        {{line.product.description}}
+        <br>
+        {{line.product.price | currency:'EUR':'symbol'}}
+        <br>
+        Quantità {{line.quantity}}
+        <br>
+        Parziale {{line.totalItem | currency:'EUR':'symbol' }}
+      </p>
+      <p>
+        <p-button (onClick)="cancellaElemento(line.product)"><i class="pi pi-trash"
+            style="font-size: 1.5rem"></i></p-button>
+      </p>
+    </p-card>
+    <br>
+    <p-button (onClick)="checkout()">Checkout</p-button>
+
+  </p-sidebar>
+
+
+</div>
+<br>
+
+<div>
+  <p-button (onClick)="mostraCarrello()">Mostra Carrello</p-button>
+</div>
